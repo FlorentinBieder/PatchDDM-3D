@@ -1,0 +1,31 @@
+# mamba env create -n your_env_name --file environment.yaml
+channels:
+  - pytorch
+  - nvidia
+  - https://conda.anaconda.org/conda-forge/
+  - defaults
+dependencies:
+  - python=3.10.8
+  - pytorch::pytorch=1.13.1
+  - numpy=1.23.4
+  - nvidia::cudatoolkit=10.2
+  - setproctitle
+  - matplotlib
+  - tensorboard=2.5.0
+  - tqdm
+  - pytorch::torchvision
+  - opencv
+  - nibabel
+  - jsonpatch
+  - pandas
+  - plotly
+  - scipy
+  - ca-certificates
+  - certifi
+  - openssl
+  - medpy=0.4.0
+  - pip
+  - pip:
+      - blobfile
+      - visdom
+      - einops==0.6.0
