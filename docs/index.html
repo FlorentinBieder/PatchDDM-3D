@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>PatchDDM-3D</title>
+        <meta name="description" content="Project Page of the PatchDDM-3D Publication">
+        <meta name="author" content="Florentin Bieder">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <!-- with inspiration from https://rutar.org/writing/how-to-build-a-personal-webpage-from-scratch/#an-overview-of-static-webpage-deployment -->
+        <div id="page">
+            <header>
+                <h1>Diffusion Models for Memory-efficient Processing of 3D Medical Images</h1>
+                <span id="venue"><a href="https://2023.midl.io/">Medical Imaging with Deep Learning (MIDL) 2023</a></span>
+                <br />
+                <br />
+                <span id="authors">
+                    <a href="mailto:florentin.bieder@unibas.ch">Florentin Bieder</a>,
+                    <a href="mailto:julia.wolleb@unibas.ch">Julia Wolleb</a>,
+                    <a href="mailto:alicia.durrer@unibas.ch">Alicia Durrer</a>,
+                    <a href="mailto:robin.sandkuehler@unibas.ch">Robin Sandkuehler</a>,
+                    <a href="mailto:philippe.cattin@unibas.ch">Philippe C. Cattin</a>
+                </span>
+                <div id="affiliation">Center for medical Image Analysis &amp; Navigation (CIAN), University of Basel</div>
+
+                <nav>
+                    <ul>
+                        <li>
+                            <!-- https://static.arxiv.org/static/browse/0.3.4/images/icons/favicon-16x16.png -->
+                            <img src="icon_arxiv.png" alt="favicon" />
+                            <a href="https://arxiv.org/abs/2303.15288">ArXiv</a>
+                        </li>
+                        <li>
+                            <!-- https://openreview.net/favicon.ico -->
+                            <img src="icon_openreview.png" alt="favicon" />
+                            <a href="https://openreview.net/forum?id=neXqIGpO-tn">OpenReview</a>
+                        </li>
+                        <li>
+                            <!-- https://github.githubassets.com/favicons/favicon.png -->
+                            <img src="icon_github.png" alt="favicon" />
+                            <a href="https://github.com/FlorentinBieder/PatchDDM-3D">GitHub</a>
+                        </li>
+                        <li>
+                            <!-- https://www.unibas.ch/.resources/unibas-main/webresources/img/unibas.ico -->
+                            <img src="icon_unibas.ico"  alt="favicon" />
+                            <a href="https://dbe.unibas.ch/en/cian/">Homepage</a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <article>
+
+                <!-- authors, affiliation --!>
+                    <h2>Abstract</h2>
+                    <p id="abstract">
+                    Denoising diffusion models have recently achieved state-of-the-art 
+                    performance in many image-generation tasks. They do, however, require
+                    a large amount of computational resources. This limits their application 
+                    to medical tasks, where we often deal with large 3D volumes, like high-resolution 
+                    three-dimensional data. In this work, we present a number of different ways 
+                    to reduce the resource consumption for 3D diffusion models and apply them 
+                    to a dataset of 3D images. The main contribution of this paper is the 
+                    memory-efficient patch-based diffusion model PatchDDM, which can be applied 
+                    to the total volume during inference while the training is performed only on 
+                    patches. While the proposed diffusion model can be applied to any image 
+                    generation task, we evaluate the method on the tumor segmentation task 
+                    of the BraTS2020 dataset and demonstrate that we can generate meaningful 
+                    three-dimensional segmentations.
+                    </p>
+
+                    <a id="fig1"><img src="overview.png" alt="visual overview of model" /></a>
+                    <p class="caption">
+                    Fig. 1: Overview of our proposed method PatchDDM. The diﬀusion model is optimized
+                    in memory eﬃciency and speed by training only on coordinate-encoded patches.
+                    The input consists of noised xt, the volumes b that are to be segmented and which
+                    are provided as a condition for the segmentation, as well as a coordinate encoding
+                    CE for the patches. During sampling, the whole 3D volume can be processed at
+                    once.</p>
+
+                    <h2>Contribution</h2>
+                    <p>
+                    In this work, we introduce architectural changes to the state-of-the-art
+                    diﬀusion model implementation, enabling to train on large 3D
+                    volumes with commonly available GPUs. We adapt the U-Net-like architecture to improve
+                    the speed and memory eﬃciency. Furthermore, 
+                    we propose a novel method illustrated in <a href="#fig1" title="Figure number is the same as in the paper.">Figure 1</a>. With this method, 
+                    the diﬀusion model is trained only on coordinate-encoded patches
+                    of the input volume, which reduces the memory consumption and speeds up the training
+                    process. During sampling, the proposed method allows processing large volumes in their full
+                    resolution without needing to split them up into patches. To evaluate our method, 
+                    we perform
+                    diﬀusion model based image segmentation (see <a href="#fig3" title="Figure number is the same as in the paper.">Figure 3</a>) 
+                    that has previously
+                    been proposed for 2D segmentation on the BraTS2020 dataset.
+                    </p>
+                    <a id="fig3" href="https://openreview.net/forum?id=QNLR05X6uW"><img src="diff_seg.png" alt="overview over diffusion pipeline" /></a>
+                    <p class="caption">
+                    Fig. 3: The ground truth segmentation <i>x<sub>0</sub></i>
+                    is degraded by the noising process <i>q</i>. We train
+                    a network to perform the denoising process <i>p<sub>ϑ</sub></i>, 
+                    that is, given some noised image
+                    <i>x<sub>t</sub></i>, we train it to denoise 
+                    it with the MR-sequences <i>b</i> as a condition.
+                    </p>
+
+                    <h2>Results</h2>
+                    Here we present some selected results. For more experiments we'd like to refer
+                    to the paper.
+                    To further reduce the computational footprint, we investigated increasing the sampling
+                    step size, and use the implicit ensembling to to increase the quality.
+                    <a href="#fig5" title="Figure number is the same as in the paper.">Figure 5</a> shows the trade-oﬀ between the 
+                    ensemble size and the number of sampling steps.
+                    With as little as 20 sampling steps (i.e. a step size of 50), 
+                    the performance is already close
+                    to the results obtained with T = 1000 steps, implying a speedup of a factor of 50. But
+                    even with fewer step sizes, we can trade the number of steps for a greater ensemble size to
+                    achieve a similar performance. Consequently, for a ﬁxed budget of network evaluations (i.e.
+                    steps), we can proﬁt from using ensembling with accelerated sampling.
+                    <a id="fig5"><img src="results.png" alt="a results plot" /></a>
+                    <p class="caption">
+                    Fig. 5: The average Dice score and HD95 metric on the test set as a function of the
+                    number of sampling steps and the ensemble size. The white sections indicate
+                    that we did not evaluate that combination.
+                    </p>
+
+                    <h2>Cite</h2>
+                    <h3>BibTeX</h3>
+                    <p>
+                    <div class="codeblock">
+                    <pre><code>@inproceedings{bieder2023memory,
+  title={Memory-Efficient 3D Denoising Diffusion Models for Medical Image Processing},
+  author={Bieder, Florentin and Wolleb, Julia and Durrer, Alicia and Sandkuehler, Robin and Cattin, Philippe C},
+  booktitle={Medical Imaging with Deep Learning},
+  year={2023},
+  url={https://openreview.net/forum?id=neXqIGpO-tn}
+}</code></pre>
+                    </div>
+            </article>
+        </div>
+        <footer>
+            <p>
+            &copy; Florentin Bieder
+            </p>
+        </footer>
+    </body>
+</html>

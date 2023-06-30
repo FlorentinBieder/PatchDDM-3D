@@ -1,0 +1,121 @@
+body {
+    background-color: ddd;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    margin: 0 auto;
+    max-width: 700px;
+    min-width: 0;
+    padding: 0 10px 25px;
+}
+
+header {
+    text-align: center;
+}
+
+h1 {
+    font-size: 28pt;
+}
+
+h1, h2, h3 {
+    text-align: center;
+}
+h2 {
+    margin-top: 40px;
+}
+
+p {
+    line-height:1.4;
+}
+
+.caption {
+    font-size: 10pt;
+    padding-right: 40px;
+}
+a, p {
+    color: #222;
+}
+
+#venue {
+    font-size: 16pt;
+}
+
+#authors {
+    font-size: 12pt;
+}
+
+#affiliation {
+    margin-top: 10px;
+    font-size: 12pt;
+}
+
+nav img {
+    width: 16px;
+    height: 16px;
+}
+ 
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+nav li {
+    background-color:#e8e8e8;
+    border: none; /*solid 2px #bbb;*/
+    padding:10px;
+    display: inline-block; /* remove newlines */
+    border-radius: 23px;
+    height:20px;
+}
+
+nav li:hover {
+    border: solid 2px #bbb;
+    padding: 8px;
+}
+
+nav a, nav a:visited {
+    text-decoration: none;
+    color:#000;
+}
+
+article img {
+    width: 100%;
+}
+
+
+#abstract {
+    padding: 0px 80px;
+    text-align: justify;
+    font-style: italic;
+}
+
+.codeblock {
+    background-color: #ddd;
+    overflow-x: scroll;
+    padding:0;
+    margin:0;
+}
+
+pre {
+    color: #555;
+    font-family: "Lucida Console", "Courier New", monospace;
+    padding: 5px;
+    margin: 0;
+}
+
+@media screen and (max-width: 500px) {
+    h1 {
+        font-size: 16pt;
+    }
+    #venue a {
+        font-size: 12pt;
+        color: black;
+    }
+    #authors {
+        font-size: 10pt;
+    }
+    #affiliation {
+        font-size: 10pt;
+    }
+}
