@@ -10,6 +10,7 @@ import random
 sys.path.append("..")
 sys.path.append(".")
 from guided_diffusion.bratsloader import BRATSDataset
+from guided_diffusion.xxxloader import XXXDataset
 from guided_diffusion import dist_util, logger
 from guided_diffusion.resample import create_named_schedule_sampler
 from guided_diffusion.script_util import (
@@ -59,7 +60,7 @@ def main():
     logger.log("creating data loader...")
 
     if args.dataset == 'brats':
-        ds = BRATSDataset(args.data_dir, test_flag=False)
+        ds = XXXDataset(args.data_dir)
         datal = th.utils.data.DataLoader(
             ds,
             batch_size=args.batch_size,
@@ -68,13 +69,8 @@ def main():
 
     elif args.dataset == 'brats3d':
         assert args.image_size in [128, 256]
-        ds = BRATSDataset(args.data_dir, test_flag=False, 
-                          normalize=(lambda x: 2*x - 1) if args.renormalize else None,
-                          mode='train',
-                          half_resolution=(args.image_size == 128) and not args.half_res_crop,
-                          random_half_crop=(args.image_size == 128) and args.half_res_crop,
-                          concat_coords=args.concat_coords,
-                          num_classes=args.out_channels,
+        ds = XXXDataset(random_half_crop=True,
+                          concat_coords=True,
                           )
         datal = th.utils.data.DataLoader(
             ds,
