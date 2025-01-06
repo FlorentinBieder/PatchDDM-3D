@@ -52,5 +52,3 @@ like
 
 ### Copyright
 Copyright 2023 Center of Image Analysis and Navigation, University of Basel
-
-Licensed under Apache License, Version 2.0
